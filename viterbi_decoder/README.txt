@@ -1,0 +1,5 @@
+Implementation of Viterbi decoder:
+1. The main function takes input from stdin and uses a while-loop to process multiple input lines. Empty lines and lines starting with "#" are skipped.
+2. In the decoder, first, tables that are only dependent on constraint length k and channel patterns c1 and c2 are initialized. Then the predecessor of each state at each time instance is calculated and kept in a 2-D array by iterative calculation of accumulated error metrics. Finally, the route is figured out using the state with smallest accumulated error metrics and the predecessor table by trace-back.
+3. In the result, the input binary string is calculated. Using the input binary, the correct output is also figured out and compared with the received binary to find the locations of errors during transmission.
+4. Testing (java P2 <test.dat) is done using test.dat containing test cases from autotest and that are constructed by myself.

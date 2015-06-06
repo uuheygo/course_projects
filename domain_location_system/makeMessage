@@ -1,0 +1,2 @@
+g++ -o dlsServer dlsServer.cpp
+g++ -o dlsClient dlsClient.cpp

@@ -1,0 +1,3 @@
+fuzzy logic 1: 60
+fuzzy logic 2: 47
+no fuzzy logic: 78
