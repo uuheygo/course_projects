@@ -1,0 +1,21 @@
+Simplified OpenStack Storage System
+
+1. The storage of object in the distributed system is based on consistent hashing with partitions. A 32-bit hash value is calculated from the user/filename string to determine which partitions to use to store the file. And redundancy and disaster recovery is made possible by storing two replicas of the same file on different storage machines in the system.
+
+2. The system contains three major program that runs on client, proxy server and storage server. The storage space is initialized with specified number of partitions and a group of storage machines. The storage server is responsible for files storage, maintenance of file integrity, and communication with proxy server. The proxy server is the bridge between the storage server and the client. It gets files from client and store them to corresponding storage servers. It also collects and re-construct files from storage server, and sends them to client. The client is an interface for user and the system. 
+
+4. The system ensures consistency by checking whether any storage servers are offline and whether any files are lost/corrupted. The problems are fixed before responding to any client requests. For example, if a storage server is offline, the proxy server detects it and redistributes the partitions assigned to this machine to other online machines together with the files in that offline machine. Another example is that when a file is corrupted, the server can detect it by comparing the MD checksum of the file with saved value, and then replaces it with a good copy from the a second replica.
+
+5. The interface for client and proxy server includes the following commands: 
+    upload user/filename: upload a file belonging to a user to the storage system. If the same user/file exists, overwrite it.
+    download user/filename: download file owned by a user from the server
+    delete user/filename: delete all replicas of a file owned by a user
+    list user: list all files belonging to a user
+    add disk: add a new storage server
+    remove disk: remove a storage server from the system
+    
+6. The interface for proxy server and the storage server includes:
+    upload, download: file transfer between storage server and proxy server
+    delete: delete all file replicas
+    check user/filename: check whether the file is lost/corrupted or not
+    disk check: answer proxy server if it's still online
